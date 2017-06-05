@@ -1,24 +1,4 @@
-# yoctol-nlu-node
-
-Yoctol Natural Language Understanding SDK for nodejs
-
-## Install
-
-```sh
-$ npm install ynlu
-```
-
-or using yarn:
-
-```sh
-$ yarn add ynlu
-```
-
-## Usage
-
-
-```js
-const { NLUClient } = require('ynlu');
+const { NLUClient } = require('../src');
 
 // put your token into client
 const client = new NLUClient(process.env.TOKEN);
@@ -42,4 +22,3 @@ async function run() {
 }
 
 run();
-```

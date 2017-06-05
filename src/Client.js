@@ -1,8 +1,11 @@
+const invariant = require('invariant');
+
 const IntentClassifier = require('./IntentClassifier');
 const graphql = require('./utils/graphql');
 
 class Client {
   constructor(token) {
+    invariant(token, 'Must provide access token for NLU service.');
     this._token = token;
 
     this._createClassifierMutation = `
@@ -25,9 +28,16 @@ class Client {
         name,
       },
     };
-    const {
-      data: { createClassifier: { classifier: { id } } },
-    } = await graphql(this._createClassifierMutation, variables);
+
+    const { data: { createClassifier } } = await graphql(
+      this._createClassifierMutation,
+      variables
+    );
+
+    invariant(createClassifier, 'createClassifier: Something goes wrong.');
+
+    const { classifier: { id } } = createClassifier;
+
     return new IntentClassifier({
       id,
       name,
