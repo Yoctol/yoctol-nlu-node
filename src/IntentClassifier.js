@@ -1,9 +1,13 @@
+const invariant = require('invariant');
+
 const graphql = require('./utils/graphql');
 
 class IntentClassifier {
   constructor({ id, name, token }) {
     this._id = id;
     this._name = name;
+
+    invariant(token, 'Must provide access token for NLU service.');
     this._token = token;
 
     this._createIntentsMutation = `
@@ -87,10 +91,15 @@ class IntentClassifier {
         intentNames: intents,
       },
     };
-    const { data: { createIntents: { intents: { edges } } } } = await graphql(
+
+    const { data: { createIntents } } = await graphql(
       this._createIntentsMutation,
       variables
     );
+
+    invariant(createIntents, 'createIntents: Something goes wrong.');
+
+    const { intents: { edges } } = createIntents;
 
     return edges.map(e => e.node);
   }
@@ -121,10 +130,16 @@ class IntentClassifier {
         text,
       },
     };
-    const { data: { predict: { predictions: { edges } } } } = await graphql(
+
+    const { data: { predict } } = await graphql(
       this._predictMutation,
       variables
     );
+
+    invariant(predict, 'predict: Something goes wrong.');
+
+    const { predictions: { edges } } = predict;
+
     return edges
       .map(e => ({ name: e.node.intent.name, score: e.node.score }))
       .sort((a, b) => (a.score < b.score ? 1 : -1));
