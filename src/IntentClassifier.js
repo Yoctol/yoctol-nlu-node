@@ -79,6 +79,10 @@ class IntentClassifier {
     `;
   }
 
+  get id() {
+    return this._id;
+  }
+
   async createIntents(intents) {
     const variables = {
       input: {
