@@ -1,12 +1,11 @@
 module.exports = {
-  parser: 'babel-eslint',
   extends: ['yoctol-base', 'prettier'],
   env: {
     node: true,
     jest: true,
     jasmine: true,
   },
-  plugins: ['flowtype', 'prettier'],
+  plugins: ['prettier'],
   rules: {
     'class-methods-use-this': 'off',
     'consistent-return': 'off',
@@ -18,13 +17,5 @@ module.exports = {
         singleQuote: true,
       },
     ],
-  },
-  settings: {
-    flowtype: {
-      onlyFilesWithFlowAnnotation: true,
-    },
-  },
-  globals: {
-    MessengerExtensions: true,
   },
 };
