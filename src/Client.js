@@ -40,7 +40,13 @@ class Client {
 
     return new IntentClassifier({
       id,
-      name,
+      token: this._token,
+    });
+  }
+
+  findClassifierById(id) {
+    return new IntentClassifier({
+      id,
       token: this._token,
     });
   }

@@ -3,9 +3,8 @@ const invariant = require('invariant');
 const graphql = require('./utils/graphql');
 
 class IntentClassifier {
-  constructor({ id, name, token }) {
+  constructor({ id, token }) {
     this._id = id;
-    this._name = name;
 
     invariant(token, 'Must provide access token for NLU service.');
     this._token = token;
@@ -78,10 +77,6 @@ class IntentClassifier {
         }
       }
     `;
-  }
-
-  get name() {
-    return this._name;
   }
 
   async createIntents(intents) {
