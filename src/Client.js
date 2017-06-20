@@ -22,6 +22,10 @@ class Client {
     `;
   }
 
+  connect(token) {
+    return new Client(token);
+  }
+
   async createClassifier(name) {
     const variables = {
       input: {
