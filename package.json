@@ -7,6 +7,10 @@
   "files": [
     "src"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yoctol/yoctol-nlu-node.git"
+  },
   "scripts": {
     "lint": "eslint bin src scripts",
     "lint:fix": "npm run lint -- --fix",
