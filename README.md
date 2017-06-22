@@ -35,7 +35,7 @@ async function train() {
 }
 
 async function predict() {
-  const classifier = await client.findClassifierById('...');
+  const classifier = client.findClassifierById('...');
   const result = await classifier.predict('買給我好不好');
 }
 ```
