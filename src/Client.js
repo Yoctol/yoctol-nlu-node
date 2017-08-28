@@ -1,53 +1,27 @@
 const invariant = require('invariant');
 
 const IntentClassifier = require('./IntentClassifier');
-const graphql = require('./utils/graphql');
+const createFetchFromToken = require('./utils/createFetchFromToken');
 
 class Client {
   constructor(token) {
     invariant(token, 'Must provide access token for NLU service.');
-    this._token = token;
-
-    this._createClassifierMutation = `
-      mutation _($input: CreateClassifierInput!) {
-        useToken(token: "${this._token}") {
-          ok
-        }
-        createClassifier(input: $input) {
-          classifier {
-            id
-          }
-        }
-      }
-    `;
+    this._graphql = createFetchFromToken(token);
   }
 
-  async createClassifier(name) {
-    const variables = {
-      input: {
-        name,
-      },
-    };
+  createProject() {
+    // Todo
+  }
 
-    const { data: { createClassifier } } = await graphql(
-      this._createClassifierMutation,
-      variables
-    );
-
-    invariant(createClassifier, 'createClassifier: Something goes wrong.');
-
-    const { classifier: { id } } = createClassifier;
-
-    return new IntentClassifier({
-      id,
-      token: this._token,
-    });
+  findProjectById() {
+    // Todo
   }
 
   findClassifierById(id) {
+    // Todo: fetch data from graphql
     return new IntentClassifier({
+      graphql: this._graphql,
       id,
-      token: this._token,
     });
   }
 }

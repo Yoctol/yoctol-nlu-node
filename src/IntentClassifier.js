@@ -1,147 +1,51 @@
 const invariant = require('invariant');
 
-const graphql = require('./utils/graphql');
+const predictMutation = `
+  mutation _($classifierId: Int!, $text: String!, $exactly: Boolean) {
+    predict(classifierId: $classifierId, text: $text, exactly: $exactly) {
+      name
+      score
+    }
+  }
+`;
 
 class IntentClassifier {
-  constructor({ id, token }) {
+  constructor({ id, graphql }) {
     this._id = id;
 
-    invariant(token, 'Must provide access token for NLU service.');
-    this._token = token;
-
-    this._createIntentsMutation = `
-      mutation _($input: CreateIntentsInput!) {
-        useToken(token: "${this._token}") {
-          ok
-        }
-        createIntents(input: $input) {
-          intents {
-            edges {
-              node {
-                id
-                name
-              }
-            }
-          }
-        }
-      }
-    `;
-
-    this._createUtterancesMutation = `
-      mutation _($input: CreateUtterancesInput!) {
-        useToken(token: "${this._token}") {
-          ok
-        }
-        createUtterances(input: $input) {
-          utterances {
-            edges {
-              node {
-                id
-                text
-              }
-            }
-          }
-        }
-      }
-    `;
-
-    this._trainMutation = `
-      mutation _($input: TrainClassifierInput!) {
-        useToken(token: "${this._token}") {
-          ok
-        }
-        trainClassifier(input: $input) {
-          classifier {
-            isTraining
-          }
-        }
-      }
-    `;
-
-    this._predictMutation = `
-      mutation _($input: PredictInput!) {
-        useToken(token: "${this._token}") {
-          ok
-        }
-        predict(input: $input) {
-          predictions {
-            edges {
-              node {
-                intent {
-                  name
-                }
-                score
-              }
-            }
-          }
-        }
-      }
-    `;
+    invariant(graphql, 'Must provide graphql client for NLU service.');
+    this._graphql = graphql;
   }
 
   get id() {
     return this._id;
   }
 
-  async createIntents(intents) {
-    const variables = {
-      input: {
-        classifierId: this._id,
-        intentNames: intents,
-      },
-    };
-
-    const { data: { createIntents } } = await graphql(
-      this._createIntentsMutation,
-      variables
-    );
-
-    invariant(createIntents, 'createIntents: Something goes wrong.');
-
-    const { intents: { edges } } = createIntents;
-
-    return edges.map(e => e.node);
+  createIntents() {
+    // TODO
   }
 
-  async createUtterances(intentId, utterances) {
-    const variables = {
-      input: {
-        intentId,
-        utteranceTexts: utterances,
-      },
-    };
-    return graphql(this._createUtterancesMutation, variables);
+  createUtterances() {
+    // TODO
   }
 
-  async train() {
-    const variables = {
-      input: {
-        classifierId: this._id,
-      },
-    };
-    await graphql(this._trainMutation, variables);
+  train() {
+    // TODO
   }
 
-  async predict(text) {
+  async predict(text, exactly = true) {
     const variables = {
-      input: {
-        classifierId: this._id,
-        text,
-      },
+      classifierId: this._id,
+      text,
+      exactly,
     };
 
-    const { data: { predict } } = await graphql(
-      this._predictMutation,
-      variables
-    );
+    const { data: { predict } } = await this._graphql({
+      query: predictMutation,
+      variables,
+    });
 
-    invariant(predict, 'predict: Something goes wrong.');
-
-    const { predictions: { edges } } = predict;
-
-    return edges
-      .map(e => ({ name: e.node.intent.name, score: e.node.score }))
-      .sort((a, b) => (a.score < b.score ? 1 : -1));
+    return predict;
   }
 }
 
