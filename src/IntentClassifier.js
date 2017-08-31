@@ -1,11 +1,10 @@
 const invariant = require('invariant');
 
 const trainMutation = `
-  mutation _($classifierId: Int!) {
+  mutation _($classifierId: String!) {
     train(classifierId: $classifierId) {
       id
       name
-      model_id
       updated_at
       isTraining
     }
@@ -13,10 +12,21 @@ const trainMutation = `
 `;
 
 const predictMutation = `
-  mutation _($classifierId: Int!, $text: String!, $exactly: Boolean) {
-    predict(classifierId: $classifierId, text: $text, exactly: $exactly) {
-      name
-      score
+  mutation _($classifierId: String!, $text: String!, $exactly: Boolean) {
+    predictModern(classifierId: $classifierId, text: $text, exactly: $exactly) {
+      intents {
+        name
+        score
+      }
+      entities {
+        name
+        value
+        score
+      }
+      match {
+        isMatched
+        score
+      }
     }
   }
 `;
@@ -61,12 +71,12 @@ class IntentClassifier {
       exactly,
     };
 
-    const { data: { predict } } = await this._graphql({
+    const { data: { predictModern } } = await this._graphql({
       query: predictMutation,
       variables,
     });
 
-    return predict;
+    return predictModern;
   }
 }
 
