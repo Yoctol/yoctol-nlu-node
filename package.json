@@ -1,6 +1,6 @@
 {
   "name": "ynlu",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "description": "Yoctol Natural Language Understanding SDK for nodejs",
   "license": "MIT",
   "main": "src/index.js",
