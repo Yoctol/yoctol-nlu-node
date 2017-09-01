@@ -1,8 +1,10 @@
 const Client = require('./Client');
 const IntentClassifier = require('./IntentClassifier');
 
-// eslint-disable-next-line no-multi-assign
-exports = module.exports = {
+exports.Client = Client;
+exports.IntentClassifier = IntentClassifier;
+
+module.exports = {
   Client,
   IntentClassifier,
 };
