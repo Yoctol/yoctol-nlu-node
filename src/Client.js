@@ -17,24 +17,11 @@ class Client {
     // Todo
   }
 
-  async findClassifierById(_id) {
+  findClassifierById(_id) {
     invariant(/^[0-9]+$/.test(_id), 'id should be string of number');
 
-    const classifierQuery = `{
-      classifier(id: "${_id}") {
-        id
-      }
-    }
-    `;
-
-    const { data: { classifier } } = await this._graphql({
-      query: classifierQuery,
-    });
-
-    invariant(classifier, 'classifier is not existed.');
-
     return new IntentClassifier({
-      id: classifier.id,
+      id: _id,
       graphql: this._graphql,
     });
   }
