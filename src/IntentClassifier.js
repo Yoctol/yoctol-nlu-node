@@ -13,7 +13,7 @@ const trainMutation = `
 
 const predictMutation = `
   mutation _($classifierId: String!, $text: String!, $exactly: Boolean) {
-    predictModern(classifierId: $classifierId, text: $text, exactly: $exactly) {
+    predict(classifierId: $classifierId, text: $text, exactly: $exactly) {
       intents {
         name
         score
@@ -71,12 +71,12 @@ class IntentClassifier {
       exactly,
     };
 
-    const { data: { predictModern } } = await this._graphql({
+    const { data: { predict } } = await this._graphql({
       query: predictMutation,
       variables,
     });
 
-    return predictModern;
+    return predict;
   }
 }
 
