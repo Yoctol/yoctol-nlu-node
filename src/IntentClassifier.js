@@ -22,6 +22,9 @@ const predictMutation = `
         name
         value
         score
+        parsedResult {
+          value
+        }
       }
       match {
         isMatched
