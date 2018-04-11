@@ -1,5 +1,7 @@
 const invariant = require('invariant');
 
+const createErrorFromGraphql = require('./utils/createErrorFromGraphql');
+
 const trainMutation = `
   mutation _($classifierId: String!) {
     train(classifierId: $classifierId) {
@@ -59,12 +61,16 @@ class IntentClassifier {
       classifierId: this._id,
     };
 
-    const { data: { train } } = await this._graphql({
+    const { data, errors } = await this._graphql({
       query: trainMutation,
       variables,
     });
 
-    return train;
+    if (errors) {
+      throw createErrorFromGraphql(errors, 'IntentClassifier#train');
+    }
+
+    return data.train;
   }
 
   async predict(text, exactly = true) {
@@ -74,12 +80,16 @@ class IntentClassifier {
       exactly,
     };
 
-    const { data: { predict } } = await this._graphql({
+    const { data, errors } = await this._graphql({
       query: predictMutation,
       variables,
     });
 
-    return predict;
+    if (errors) {
+      throw createErrorFromGraphql(errors, 'IntentClassifier#predict');
+    }
+
+    return data.predict;
   }
 }
 
