@@ -1,6 +1,6 @@
 # yoctol-nlu-node
 
-Yoctol Natural Language Understanding SDK for nodejs
+Yoctol Natural Language Understanding SDK for Node.js
 
 ## Install
 
@@ -31,6 +31,9 @@ async function train() {
 async function predict() {
   const classifier = client.findClassifierById('...');
   // the second parameter is Boolean, represent exactly match or not
-  const result = await classifier.predict('買給我好不好', true);
+  // default to true
+  const result1 = await classifier.predict('買給我好不好'); // exactly match = true
+  const result2 = await classifier.predict('買給我好不好', true);
+  const result3 = await classifier.predict('買給我好嗎', false);
 }
 ```
