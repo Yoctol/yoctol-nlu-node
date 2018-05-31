@@ -36,4 +36,10 @@ async function predict() {
   const result2 = await classifier.predict('買給我好不好', true);
   const result3 = await classifier.predict('買給我好嗎', false);
 }
+
+async function extract() {
+  const extractor = client.findExtractorById('...');
+
+  const entities = await extractor.extract('買給我好不好'); 
+}
 ```

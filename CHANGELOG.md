@@ -1,3 +1,7 @@
+# 0.4.0 / 2018-04-11
+
+* [new] Add `EntityExtractor`
+
 # 0.3.2 / 2018-04-11
 
 * [fix] Throw more error message
