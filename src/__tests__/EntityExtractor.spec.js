@@ -43,6 +43,8 @@ it('should return entities if match', async () => {
       parsedResult: null,
     },
   ]);
+
+  expect(classifer.predict).toBeCalledWith('abc', true);
 });
 
 it('should return null if no predict result', async () => {
