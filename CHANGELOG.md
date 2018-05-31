@@ -1,3 +1,7 @@
+# 0.4.1 / 2018-05-31
+
+* [fix] fix wrong input (classifer.predict)
+
 # 0.4.0 / 2018-05-31
 
 * [new] Add `EntityExtractor`
