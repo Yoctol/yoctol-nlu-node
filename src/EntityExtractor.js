@@ -10,13 +10,7 @@ class EntityExtractor {
   }
 
   async extract(text, exactly = true) {
-    const variables = {
-      classifierId: this._id,
-      text,
-      exactly,
-    };
-
-    const predict = await this._classifer.predict(variables);
+    const predict = await this._classifer.predict(text, exactly);
 
     if (!predict) {
       return null;
