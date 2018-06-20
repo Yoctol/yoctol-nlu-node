@@ -1,3 +1,7 @@
+# 0.4.2 / 2018-06-20
+
+* [change] Change mutation naming.
+
 # 0.4.1 / 2018-05-31
 
 * [fix] fix wrong input (classifer.predict)
