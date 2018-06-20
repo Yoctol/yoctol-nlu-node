@@ -3,7 +3,7 @@ const invariant = require('invariant');
 const createErrorFromGraphql = require('./utils/createErrorFromGraphql');
 
 const trainMutation = `
-  mutation _($classifierId: String!) {
+  mutation sdkTrain($classifierId: String!) {
     train(classifierId: $classifierId) {
       id
       name
@@ -14,7 +14,7 @@ const trainMutation = `
 `;
 
 const predictMutation = `
-  mutation _($classifierId: String!, $text: String!, $exactly: Boolean) {
+  mutation sdkPredict($classifierId: String!, $text: String!, $exactly: Boolean) {
     predict(classifierId: $classifierId, text: $text, exactly: $exactly) {
       intents {
         name
