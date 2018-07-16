@@ -3,7 +3,7 @@ const invariant = require('invariant');
 const createErrorFromGraphql = require('./utils/createErrorFromGraphql');
 
 const trainMutation = `
-  mutation sdkTrain($classifierId: String!) {
+  mutation SdkTrain($classifierId: String!) {
     train(classifierId: $classifierId) {
       id
       name
@@ -14,7 +14,7 @@ const trainMutation = `
 `;
 
 const predictMutation = `
-  mutation sdkPredict($classifierId: String!, $text: String!, $exactly: Boolean) {
+  mutation SdkPredict($classifierId: String!, $text: String!, $exactly: Boolean) {
     predict(classifierId: $classifierId, text: $text, exactly: $exactly) {
       intents {
         name
@@ -38,9 +38,9 @@ const predictMutation = `
 
 class IntentClassifier {
   constructor({ id, graphql }) {
-    this._id = id;
-
     invariant(graphql, 'Must provide graphql client for NLU service.');
+
+    this._id = id;
     this._graphql = graphql;
   }
 
