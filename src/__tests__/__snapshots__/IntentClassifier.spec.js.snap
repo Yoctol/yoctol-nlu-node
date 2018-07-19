@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`handle error should throw error when predict error happended 1`] = `
+[Error: YNLU error happens in IntentClassifier#predict!
+Fake predict error message]
+`;
+
+exports[`handle error should throw error when train error happended 1`] = `
+[Error: YNLU error happens in IntentClassifier#train!
+Fake train error message]
+`;
+
+exports[`handle error should throw when not provide graphql 1`] = `"Must provide graphql client for NLU service."`;
