@@ -1,3 +1,7 @@
+# 0.4.3 / 2018-07-19
+
+* [change] Use PascalCase mutation naming.
+
 # 0.4.2 / 2018-06-20
 
 * [change] Change mutation naming.
