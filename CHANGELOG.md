@@ -1,3 +1,7 @@
+# 0.4.5 / 2018-09-14
+
+- [new] Add options for customize endpoint
+
 # 0.4.4 / 2018-08-06
 
 - [new] Add update-notifier
