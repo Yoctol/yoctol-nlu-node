@@ -5,9 +5,9 @@ const EntityExtractor = require('./EntityExtractor');
 const createFetchFromToken = require('./utils/createFetchFromToken');
 
 class Client {
-  constructor(token) {
+  constructor(token, options) {
     invariant(token, 'Must provide access token for NLU service.');
-    this._graphql = createFetchFromToken(token);
+    this._graphql = createFetchFromToken(token, options);
   }
 
   createProject() {
@@ -40,7 +40,7 @@ class Client {
 }
 
 module.exports = {
-  connect(token) {
-    return new Client(token);
+  connect(token, options) {
+    return new Client(token, options);
   },
 };

@@ -16,7 +16,6 @@ $ yarn add ynlu
 
 ## Usage
 
-
 ```js
 const { Client } = require('ynlu');
 
@@ -40,6 +39,19 @@ async function predict() {
 async function extract() {
   const extractor = client.findExtractorById('...');
 
-  const entities = await extractor.extract('買給我好不好'); 
+  const entities = await extractor.extract('買給我好不好');
 }
+```
+
+### Options
+
+#### Customize endpoint
+
+```js
+const { Client } = require('ynlu');
+
+const client = Client.connect(
+  process.env.TOKEN,
+  { endpoint: 'https://some.domain/graphql' }
+);
 ```

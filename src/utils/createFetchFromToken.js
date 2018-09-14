@@ -2,8 +2,9 @@ const { createApolloFetch } = require('apollo-fetch');
 
 const GRAPHQL_ENDPOINT = 'https://ynlu.yoctol.com/graphql';
 
-module.exports = function createFetchFromToken(token) {
-  const apolloFetch = createApolloFetch({ uri: GRAPHQL_ENDPOINT });
+module.exports = function createFetchFromToken(token, opts) {
+  const uri = opts && opts.endpoint ? opts.endpoint : GRAPHQL_ENDPOINT;
+  const apolloFetch = createApolloFetch({ uri });
 
   apolloFetch.use(({ options }, next) => {
     if (!options.headers) {
