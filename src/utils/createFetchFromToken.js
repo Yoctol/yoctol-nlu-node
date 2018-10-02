@@ -1,19 +1,21 @@
-const { createApolloFetch } = require('apollo-fetch');
+const fetch = require('node-fetch');
+const { createHttpLink } = require('apollo-link-http');
+const { execute, makePromise } = require('apollo-link');
 
 const GRAPHQL_ENDPOINT = 'https://ynlu.yoctol.com/graphql';
 
 module.exports = function createFetchFromToken(token, opts) {
   const uri = opts && opts.endpoint ? opts.endpoint : GRAPHQL_ENDPOINT;
-  const apolloFetch = createApolloFetch({ uri });
 
-  apolloFetch.use(({ options }, next) => {
-    if (!options.headers) {
-      options.headers = {}; // Create the headers object if needed.
-    }
-    options.headers.authorization = `Bearer ${token}`;
-
-    next();
+  const link = createHttpLink({
+    uri,
+    fetch,
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
   });
 
-  return apolloFetch;
+  return async function graphql(operation) {
+    return makePromise(execute(link, operation));
+  };
 };
