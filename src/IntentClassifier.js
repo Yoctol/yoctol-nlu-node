@@ -4,12 +4,14 @@ const gql = require('graphql-tag');
 const createErrorFromGraphql = require('./utils/createErrorFromGraphql');
 
 const trainMutation = gql`
-  mutation SdkTrain($classifierId: String!) {
-    train(classifierId: $classifierId) {
-      id
-      name
-      updated_at
-      isTraining
+  mutation SdkTrain($input: TrainInput!) {
+    train(input: $input) {
+      classifier {
+        id
+        name
+        updated_at
+        isTraining
+      }
     }
   }
 `;
@@ -63,7 +65,9 @@ class IntentClassifier {
 
   async train() {
     const variables = {
-      classifierId: this._id,
+      input: {
+        classifierId: this._id,
+      },
     };
 
     const { data, errors } = await this._graphql({
