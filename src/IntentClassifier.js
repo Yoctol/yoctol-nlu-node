@@ -24,10 +24,12 @@ const predictMutation = gql`
   ) {
     predict(classifierId: $classifierId, text: $text, exactly: $exactly) {
       intents {
+        id
         name
         score
       }
       entities {
+        id
         name
         value
         score
