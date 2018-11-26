@@ -35,6 +35,7 @@ const predictMutation = gql`
         score
         parsedResult {
           value
+          entityValueId
         }
       }
       match {
