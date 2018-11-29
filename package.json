@@ -6,7 +6,7 @@
     "type": "git",
     "url": "git+https://github.com/Yoctol/yoctol-nlu-node.git"
   },
-  "version": "0.5.0",
+  "version": "0.5.1",
   "main": "src/index.js",
   "files": [
     "src"
