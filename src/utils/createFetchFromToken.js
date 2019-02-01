@@ -2,6 +2,8 @@ const fetch = require('node-fetch');
 const { createHttpLink } = require('apollo-link-http');
 const { execute, makePromise } = require('apollo-link');
 
+const pkg = require('../../package.json');
+
 const GRAPHQL_ENDPOINT = 'https://ynlu.yoctol.com/graphql';
 
 module.exports = function createFetchFromToken(token, opts) {
@@ -11,6 +13,8 @@ module.exports = function createFetchFromToken(token, opts) {
     uri,
     fetch,
     headers: {
+      'apollographql-client-name': 'ynlu-node-sdk',
+      'apollographql-client-version': pkg.version,
       authorization: `Bearer ${token}`,
     },
   });
