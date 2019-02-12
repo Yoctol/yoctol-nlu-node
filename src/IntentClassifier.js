@@ -9,7 +9,7 @@ const trainMutation = gql`
       classifier {
         id
         name
-        updated_at
+        updatedAt
         isTraining
       }
     }
